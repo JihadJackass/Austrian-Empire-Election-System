@@ -101,17 +101,16 @@ html, body {
 
 /* Submenus */
 .submenu {
-    display: none;
+    display: none; /* Ensure submenus are hidden by default */
     margin-top: 10px;
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-    animation: fadeIn 0.3s ease-in-out;
 }
 
 .submenu.active {
-    display: block;
+    display: block; /* Only display when explicitly toggled */
 }
 
 /* Animations */

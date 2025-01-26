@@ -40,8 +40,23 @@
 
         <!-- Submenus -->
         <div id="highlighting-submenu" class="submenu">
-            <h4>Highlighting</h4>
-            <p>Adjust map highlighting options here.</p>
+            <h4>Highlight Settings</h4>
+            <label for="highlight-region">Select Region:</label>
+            <select id="highlight-region">
+                <option value="everything">Everything</option>
+                <option value="americas">All Americas</option>
+                <option value="us-canada-mexico">United States, Canada, and Mexico</option>
+                <option value="europe">Europe</option>
+                <option value="asia">Asia</option>
+                <option value="eurasia">Eurasia</option>
+                <option value="russia">Russia</option>
+                <option value="china">China</option>
+            </select>
+            <br />
+            <label for="highlight-color">Highlight Color:</label>
+            <input type="color" id="highlight-color" value="#ff0000">
+            <br />
+            <button id="apply-highlight">Apply Highlight</button>
         </div>
         <div id="flag-customization-submenu" class="submenu">
             <h4>Flag Customization</h4>
