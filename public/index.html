@@ -14,56 +14,59 @@
         <span id="country-name">Austrian Federal Republic</span>
     </div>
 
-<!-- Master Dropdown Menu -->
-<div id="menu-container">
-    <button id="menu-button">Menu</button>
-    <div id="menu-dropdown">
-        <button onclick="showMasterMenu('admin-tools-menu')">Administrator Tools</button>
-        <button onclick="showMasterMenu('politics-menu')">Politics</button>
-        <button onclick="showMasterMenu('about-menu')">About</button>
+    <!-- Dropdown Menu -->
+    <div id="menu-container">
+        <button id="menu-button">Menu</button>
+        <div id="menu-dropdown">
+            <button onclick="showMasterMenu('admin-tools-menu')">Administrator Tools</button>
+            <button onclick="showMasterMenu('politics-menu')">Politics</button>
+            <button onclick="showMasterMenu('about-menu')">About</button>
+        </div>
     </div>
-</div>
 
-<!-- Administrator Tools Menu -->
-<div id="admin-tools-menu" class="master-menu">
-    <h3>Administrator Tools</h3>
-    <ul>
-        <li onclick="showSubmenu('highlighting-submenu')">Highlighting</li>
-        <li onclick="showSubmenu('flag-customization-submenu')">Flag Customization</li>
-        <li onclick="showSubmenu('name-customization-submenu')">Name Customization</li>
-        <li onclick="showSubmenu('map-customization-submenu')">Map Customization</li>
-        <li onclick="showSubmenu('map-settings-submenu')">Map Settings</li>
-        <li onclick="showSubmenu('debug-submenu')">Debug</li>
-        <li onclick="showSubmenu('save-load-management-submenu')">Save & Load Management</li>
-    </ul>
+    <!-- Administrator Tools Menu -->
+    <div id="admin-tools-menu" class="master-menu">
+        <button class="close-button" onclick="closeMenu('admin-tools-menu')">&times;</button>
+        <h3>Administrator Tools</h3>
+        <div class="menu-options">
+            <button onclick="showSubmenu('highlighting-submenu')">Highlighting</button>
+            <button onclick="showSubmenu('flag-customization-submenu')">Flag Customization</button>
+            <button onclick="showSubmenu('name-customization-submenu')">Name Customization</button>
+            <button onclick="showSubmenu('map-customization-submenu')">Map Customization</button>
+            <button onclick="showSubmenu('map-settings-submenu')">Map Settings</button>
+            <button onclick="showSubmenu('debug-submenu')">Debug</button>
+            <button onclick="showSubmenu('save-load-management-submenu')">Save & Load Management</button>
+        </div>
 
-    <!-- Submenus -->
-    <div id="highlighting-submenu" class="submenu">
-        <h4>Highlighting</h4>
-        <p>Adjust map highlighting options here.</p>
+        <!-- Submenus -->
+        <div id="highlighting-submenu" class="submenu">
+            <h4>Highlighting</h4>
+            <p>Adjust map highlighting options here.</p>
+        </div>
+        <div id="flag-customization-submenu" class="submenu">
+            <h4>Flag Customization</h4>
+            <label>Upload Flag:</label>
+            <input type="file" id="flag-file-upload" accept="image/*">
+            <label>URL Upload:</label>
+            <input type="url" id="flag-url-upload" placeholder="Enter URL">
+            <button id="apply-flag">Apply Flag</button>
+            <img id="current-flag" src="/flags/default_flag.png" alt="Current Flag">
+        </div>
     </div>
-    <div id="flag-customization-submenu" class="submenu">
-        <h4>Flag Customization</h4>
-        <label>Upload Flag:</label>
-        <input type="file" id="flag-file-upload" accept="image/*">
-        <label>URL Upload:</label>
-        <input type="url" id="flag-url-upload" placeholder="Enter URL">
-        <button id="apply-flag">Apply Flag</button>
-        <img id="current-flag" src="/flags/default_flag.png" alt="Current Flag">
+
+    <!-- Politics Menu -->
+    <div id="politics-menu" class="master-menu">
+        <button class="close-button" onclick="closeMenu('politics-menu')">&times;</button>
+        <h3>Politics</h3>
+        <p>Placeholder content for Politics options.</p>
     </div>
-</div>
 
-<!-- Politics Menu -->
-<div id="politics-menu" class="master-menu">
-    <h3>Politics</h3>
-    <p>Placeholder content for Politics options.</p>
-</div>
-
-<!-- About Menu -->
-<div id="about-menu" class="master-menu">
-    <h3>About</h3>
-    <p>Information about the system.</p>
-</div>
+    <!-- About Menu -->
+    <div id="about-menu" class="master-menu">
+        <button class="close-button" onclick="closeMenu('about-menu')">&times;</button>
+        <h3>About</h3>
+        <p>Information about the system.</p>
+    </div>
 
     <div id="map"></div>
 

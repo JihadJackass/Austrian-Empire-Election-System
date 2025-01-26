@@ -1,3 +1,82 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const masterMenus = document.querySelectorAll('.master-menu');
+    const menuButton = document.getElementById('menu-button');
+    const menuDropdown = document.getElementById('menu-dropdown');
+    let isDragging = false; // Tracks if a drag action is happening
+    let initialX, initialY; // Tracks initial mouse position for drag detection
+    let isMenuOpen = false; // Tracks whether the menu is open
+
+    // Open the dropdown menu when clicking the menu button
+    menuButton.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        menuDropdown.style.display = isMenuOpen ? 'block' : 'none';
+    });
+
+    // Dragging logic for windows
+    function makeDraggable(menuId) {
+        const menu = document.getElementById(menuId);
+        let offsetX, offsetY;
+
+        menu.addEventListener('mousedown', (e) => {
+            isDragging = false; // Reset dragging state
+            const startX = e.clientX;
+            const startY = e.clientY;
+
+            function onMouseMove(e) {
+                const distanceX = Math.abs(e.clientX - startX);
+                const distanceY = Math.abs(e.clientY - startY);
+
+                if (distanceX > 5 || distanceY > 5) {
+                    isDragging = true; // Mark as dragging if the cursor moves
+                }
+
+                menu.style.position = 'absolute';
+                menu.style.zIndex = 1000; // Bring to front
+                menu.style.left = `${e.clientX - offsetX}px`;
+                menu.style.top = `${e.clientY - offsetY}px`;
+            }
+
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            // Calculate offset
+            offsetX = e.clientX - menu.offsetLeft;
+            offsetY = e.clientY - menu.offsetTop;
+
+            // Attach listeners for dragging
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    }
+
+    // Apply dragging to all master menus
+    masterMenus.forEach(menu => {
+        makeDraggable(menu.id);
+    });
+
+    // Show a specific master menu
+    function showMasterMenu(menuId) {
+        masterMenus.forEach(menu => {
+            menu.classList.toggle('active', menu.id === menuId);
+        });
+    }
+
+    // Close a specific master menu
+    function closeMenu(menuId) {
+        const menu = document.getElementById(menuId);
+        if (menu) {
+            menu.classList.remove('active');
+        }
+    }
+
+    // Attach event listeners
+    window.showMasterMenu = showMasterMenu;
+    window.closeMenu = closeMenu;
+});
+
+
 // Initialize the map
 const map = L.map('map', {
     worldCopyJump: true,
@@ -25,65 +104,6 @@ map.setMaxBounds(bounds);
 map.on('drag', function () {
     map.panInsideBounds(bounds, { animate: true });
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-    const masterMenus = document.querySelectorAll('.master-menu');
-    const submenus = document.querySelectorAll('.submenu');
-
-    // Function to toggle master menus
-    function showMasterMenu(menuId) {
-        masterMenus.forEach(menu => {
-            menu.classList.toggle('active', menu.id === menuId);
-        });
-
-        // Hide all submenus when switching master menus
-        submenus.forEach(submenu => submenu.classList.remove('active'));
-    }
-
-    // Function to toggle submenus
-    function showSubmenu(submenuId) {
-        submenus.forEach(submenu => {
-            submenu.classList.toggle('active', submenu.id === submenuId);
-        });
-    }
-
-    // Handle Flag Customization
-    const fileInput = document.getElementById('flag-file-upload');
-    const urlInput = document.getElementById('flag-url-upload');
-    const applyButton = document.getElementById('apply-flag');
-    const currentFlagImg = document.getElementById('current-flag');
-    const topLeftFlag = document.getElementById('top-left-flag');
-
-    applyButton.addEventListener('click', () => {
-        const file = fileInput.files[0];
-        const url = urlInput.value;
-
-        if (file) {
-            const formData = new FormData();
-            formData.append('flag', file);
-
-            fetch('/api/flag/upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    currentFlagImg.src = data.flagUrl;
-                    topLeftFlag.src = data.flagUrl;
-                })
-                .catch(err => console.error('Error uploading flag:', err));
-        } else if (url) {
-            currentFlagImg.src = url;
-            topLeftFlag.src = url;
-        }
-    });
-
-    // Expose functions globally for inline use in HTML
-    window.showMasterMenu = showMasterMenu;
-    window.showSubmenu = showSubmenu;
-});
-
-
 
 // GeoJSON URL for country boundaries
 const geojsonURL = 'https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson';
