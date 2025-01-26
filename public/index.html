@@ -4,97 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Austrian Empire - Government Election System</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 100vh; /* Fullscreen map */
-        }
-
-        /* Fixed header for the flag and title */
-        #header {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1000; /* Ensure it stays above the map */
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        #header img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        #header h1 {
-            font-size: 1.2em;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
 </head>
 <body>
-    <!-- Header with flag and title -->
-    <div id="header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg" alt="Austrian Flag">
-        <h1>Austrian Federal Republic</h1>
+    <!-- Top-left flag and country name -->
+    <div id="flag-container">
+        <img id="top-left-flag" src="/flags/default_flag.png" alt="Current Flag">
+        <span id="country-name">Austrian Federal Republic</span>
     </div>
 
-    <!-- Map container -->
+    <!-- Menu Buttons -->
+    <div id="menu-buttons">
+        <button onclick="showMasterMenu('admin-tools-menu')">Administrator Tools</button>
+        <button onclick="showMasterMenu('politics-menu')">Politics</button>
+        <button onclick="showMasterMenu('about-menu')">About</button>
+    </div>
+
+    <!-- Administrator Tools Menu -->
+    <div id="admin-tools-menu" class="master-menu">
+        <h3>Administrator Tools</h3>
+        <p>Placeholder content for Administrator Tools.</p>
+    </div>
+
+    <!-- Politics Menu -->
+    <div id="politics-menu" class="master-menu">
+        <h3>Politics</h3>
+        <p>Placeholder content for Politics menu.</p>
+    </div>
+
+    <!-- About Menu -->
+    <div id="about-menu" class="master-menu">
+        <h3>About</h3>
+        <p>Placeholder content for the About menu.</p>
+    </div>
+
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script>
-        // Initialize the map
-        const map = L.map('map', {
-            worldCopyJump: true // Prevent infinite scrolling
-        }).setView([20, 0], 2); // Center the map on Earth
-
-        // Add a base map layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            noWrap: true // Prevent map wrapping
-        }).addTo(map);
-
-        // Set bounds to constrain the map to one Earth
-        const bounds = [
-            [-90, -180], // Southwest corner
-            [90, 180]    // Northeast corner
-        ];
-        map.setMaxBounds(bounds);
-
-        // Prevent dragging the map outside the bounds
-        map.on('drag', () => {
-            map.panInsideBounds(bounds, { animate: true });
-        });
-
-        // Style for the entire world (Austrian Federal Republic overlay)
-        const worldStyle = {
-            color: '#ff0000', // Red border
-            weight: 1.5,
-            fillColor: '#ffcccc', // Light red fill
-            fillOpacity: 0.6
-        };
-
-        // Fetch GeoJSON for the entire world
-        const geojsonUrl = 'https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson';
-
-        fetch(geojsonUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Apply the same style to the entire map
-                L.geoJSON(data, {
-                    style: worldStyle,
-                    onEachFeature: (feature, layer) => {
-                        // Optional: Add click interaction for individual countries
-                        layer.on('click', () => {
-                            alert(`You clicked on: ${feature.properties.ADMIN}`);
-                        });
-                    }
-                }).addTo(map);
-            })
-            .catch(err => console.error('Error loading GeoJSON:', err));
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

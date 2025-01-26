@@ -1,0 +1,166 @@
+/* Ensure full viewport coverage */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+#map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Header */
+#header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+#header img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+#header h1 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* Menu buttons */
+#menu-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    padding: 12px 15px; /* Increase padding for a larger click area */
+    font-size: 14px; /* Adjust font size for better readability */
+}
+
+#menu-buttons button {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#menu-buttons button:hover {
+    background-color: #ddd;
+}
+
+/* Menu Buttons */
+#menu-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+#menu-buttons button {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#menu-buttons button:hover {
+    background-color: #ddd;
+}
+
+/* Master Menus */
+.master-menu {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 300px;
+    height: auto;
+    background-color: #f4f4f4;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+}
+
+.master-menu.active {
+    display: block;
+}
+
+.submenu {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Flag Management Information */
+
+#current-flag-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#current-flag {
+    max-height: 50px;
+    max-width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Additions for Flag Synchronization */
+
+/* Top-left flag and country name */
+#flag-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#flag-container img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+#flag-container span {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
