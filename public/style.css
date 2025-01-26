@@ -39,106 +39,119 @@ html, body {
     margin: 0;
 }
 
-/* Menu buttons */
-#menu-buttons {
+/* Menu Container */
+#menu-container {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 1000;
-    display: flex;
-    gap: 10px;
-    padding: 12px 15px; /* Increase padding for a larger click area */
-    font-size: 14px; /* Adjust font size for better readability */
 }
 
-#menu-buttons button {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
+#menu-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-#menu-buttons button:hover {
-    background-color: #ddd;
+#menu-button:hover {
+    background-color: #0056b3;
 }
 
-/* Menu Buttons */
-#menu-buttons {
+/* Dropdown Menu */
+#menu-dropdown {
+    display: none;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-    display: flex;
-    gap: 10px;
-}
-
-#menu-buttons button {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
+    padding: 10px;
+    top: 40px;
+    right: 0;
+    z-index: 1001;
 }
 
-#menu-buttons button:hover {
-    background-color: #ddd;
+#menu-container:hover #menu-dropdown {
+    display: block;
+}
+
+#menu-dropdown button {
+    background: none;
+    border: none;
+    color: #333;
+    padding: 10px 15px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#menu-dropdown button:hover {
+    background-color: #f0f0f0;
 }
 
 /* Master Menus */
 .master-menu {
+    display: none;
     position: absolute;
     top: 60px;
     right: 10px;
     width: 300px;
-    height: auto;
-    background-color: #f4f4f4;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    padding: 15px;
     z-index: 1000;
-    display: none;
 }
 
 .master-menu.active {
     display: block;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Submenus */
 .submenu {
+    display: none;
     margin-top: 10px;
     padding: 10px;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #fafafa;
+    animation: slideDown 0.3s ease-in-out;
 }
 
 .submenu.active {
     display: block;
 }
 
-.submenu h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Flag Management Information */
-
-#current-flag-container {
-    margin-top: 10px;
-    text-align: center;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-#current-flag {
-    max-height: 50px;
-    max-width: 100%;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Additions for Flag Synchronization */
 
 /* Top-left flag and country name */
 #flag-container {

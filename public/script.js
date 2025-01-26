@@ -26,29 +26,64 @@ map.on('drag', function () {
     map.panInsideBounds(bounds, { animate: true });
 });
 
-// Ensure this code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     const masterMenus = document.querySelectorAll('.master-menu');
+    const submenus = document.querySelectorAll('.submenu');
 
-    // Function to toggle visibility of menus
+    // Function to toggle master menus
     function showMasterMenu(menuId) {
         masterMenus.forEach(menu => {
-            if (menu.id === menuId) {
-                menu.classList.add('active'); // Show the selected menu
-            } else {
-                menu.classList.remove('active'); // Hide other menus
-            }
+            menu.classList.toggle('active', menu.id === menuId);
+        });
+
+        // Hide all submenus when switching master menus
+        submenus.forEach(submenu => submenu.classList.remove('active'));
+    }
+
+    // Function to toggle submenus
+    function showSubmenu(submenuId) {
+        submenus.forEach(submenu => {
+            submenu.classList.toggle('active', submenu.id === submenuId);
         });
     }
 
-    // Attach event listeners to the menu buttons (for robustness)
-    document.querySelectorAll('#menu-buttons button').forEach(button => {
-        button.addEventListener('click', () => {
-            const menuId = button.getAttribute('onclick').match(/'(.+)'/)[1];
-            showMasterMenu(menuId);
-        });
+    // Handle Flag Customization
+    const fileInput = document.getElementById('flag-file-upload');
+    const urlInput = document.getElementById('flag-url-upload');
+    const applyButton = document.getElementById('apply-flag');
+    const currentFlagImg = document.getElementById('current-flag');
+    const topLeftFlag = document.getElementById('top-left-flag');
+
+    applyButton.addEventListener('click', () => {
+        const file = fileInput.files[0];
+        const url = urlInput.value;
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('flag', file);
+
+            fetch('/api/flag/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    currentFlagImg.src = data.flagUrl;
+                    topLeftFlag.src = data.flagUrl;
+                })
+                .catch(err => console.error('Error uploading flag:', err));
+        } else if (url) {
+            currentFlagImg.src = url;
+            topLeftFlag.src = url;
+        }
     });
+
+    // Expose functions globally for inline use in HTML
+    window.showMasterMenu = showMasterMenu;
+    window.showSubmenu = showSubmenu;
 });
+
+
 
 // GeoJSON URL for country boundaries
 const geojsonURL = 'https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson';
