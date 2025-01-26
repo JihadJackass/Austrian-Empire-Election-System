@@ -75,23 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
     window.showMasterMenu = showMasterMenu;
     window.closeMenu = closeMenu;
 });
-
-
+    
 // Initialize the map
 const map = L.map('map', {
-    worldCopyJump: true,
-    minZoom: 2,
-    maxZoom: 19,
-    zoomControl: false // Disable default zoom control placement
-}).setView([20, 0], 2);
-
-// Add zoom controls explicitly at the bottom-left
-L.control.zoom({ position: 'bottomleft' }).addTo(map);
+    worldCopyJump: false, // Prevent wrapping around the globe
+    minZoom: 3, // Lock the minimum zoom to the "fitted" level
+    maxZoom: 19, // Allow zooming in for more details
+    zoomControl: false // We'll add custom zoom controls later if needed
+}).setView([20, 0], 3); // Set the default view with the adjusted zoom level
 
 // Add tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    noWrap: true // Prevent wrapping
+    noWrap: true // Disable wrapping
 }).addTo(map);
 
 // Prevent panning outside of map bounds
@@ -101,9 +97,13 @@ const bounds = [
 ];
 map.setMaxBounds(bounds);
 
+// Prevent dragging outside bounds
 map.on('drag', function () {
     map.panInsideBounds(bounds, { animate: true });
 });
+
+// Add zoom controls explicitly at the bottom-left
+L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
 // GeoJSON URL for country boundaries
 const geojsonURL = 'https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson';
